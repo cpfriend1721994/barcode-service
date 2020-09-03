@@ -17,12 +17,23 @@ class BarcodeGenerateController
   end
 end
 
+class BarcodeRecognizeController
+  def call req
+    require 'zxing'
+    require 'rack'
+    file = Rack::Request.new(req).params['file'][:tempfile]
+    result = ZXing.decode! file
+    [ 200, { }, [ result ] ]
+  end
+end
+
 require 'agoo'
 Agoo::Server.init( 3000, 'root' )
 routing = [
   [ :GET, "/", HealthzController.new ],
   [ :GET, "/healthz", HealthzController.new ],
-  [ :GET, "/generate", BarcodeGenerateController.new ]
+  [ :GET, "/generate", BarcodeGenerateController.new ],
+  [ :POST, "/recognize", BarcodeRecognizeController.new ]
 ]
 routing.each do |r|
   Agoo::Server.handle r[0], r[1], r[2]

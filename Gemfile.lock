@@ -4,7 +4,15 @@ GEM
     agoo (2.13.0)
     barby (0.6.8)
     chunky_png (1.3.12)
-    rack (2.2.3)
+    coderay (1.1.3)
+    jruby-jars (9.2.13.0)
+    method_source (1.0.0)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    rmagick (4.1.2)
+    zxing (0.4.0)
+      jruby-jars
 
 PLATFORMS
   ruby
@@ -13,7 +21,9 @@ DEPENDENCIES
   agoo
   barby
   chunky_png
-  rack
+  pry
+  rmagick
+  zxing
 
 BUNDLED WITH
    2.1.4

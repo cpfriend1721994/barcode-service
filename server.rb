@@ -4,6 +4,7 @@ class HealthzController
     [ 200, { }, [ { name: "barcode-service", author: "tunnm" }.to_json ] ]
   end
 end
+require 'rack'
 
 class BarcodeGenerateController
   def call req
@@ -11,7 +12,7 @@ class BarcodeGenerateController
     require 'barby/barcode/code_128'
     require 'barby/outputter/png_outputter'
     require 'chunky_png'
-    text = req['QUERY_STRING'].to_s.strip
+    text = Rack::Request.new(req).params['text'].to_s.strip
     output = text == "" ?  "" : Barby::Code128B.new( text ).to_png( :height => 40, :margin => 10 )
     [ 200, { }, [ output ] ]
   end
@@ -20,7 +21,6 @@ end
 class BarcodeRecognizeController
   def call req
     require 'zxing'
-    require 'rack'
     file = Rack::Request.new(req).params['file'][:tempfile]
     result = ZXing.decode! file
     [ 200, { }, [ result ] ]

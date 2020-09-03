@@ -1,3 +1,5 @@
+require 'rack'
+
 # GET /healthz - API Healthz, response status 200 with json
 class HealthzController
   def call req
@@ -5,7 +7,6 @@ class HealthzController
     [ 200, { }, [ { name: "barcode-service", author: "tunnm" }.to_json ] ]
   end
 end
-require 'rack'
 
 # GET /generate - API generate barcode, param: { text: <text for generate barcode> }
 class BarcodeGenerateController

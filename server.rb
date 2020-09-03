@@ -1,3 +1,4 @@
+# GET /healthz - API Healthz, response status 200 with json
 class HealthzController
   def call req
     require 'json'
@@ -6,6 +7,7 @@ class HealthzController
 end
 require 'rack'
 
+# GET /generate - API generate barcode, param: { text: <text for generate barcode> }
 class BarcodeGenerateController
   def call req
     require 'barby'
@@ -18,6 +20,7 @@ class BarcodeGenerateController
   end
 end
 
+# POST /recognize - API recognize barcode, param: { file: <png image for recognize barcode images> }
 class BarcodeRecognizeController
   def call req
     require 'zxing'

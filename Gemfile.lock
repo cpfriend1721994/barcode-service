@@ -10,6 +10,7 @@ GEM
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+    rack (2.2.3)
     zxing (0.4.0)
       jruby-jars
 
@@ -21,6 +22,7 @@ DEPENDENCIES
   barby
   chunky_png
   pry
+  rack
   zxing
 
 BUNDLED WITH

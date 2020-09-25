@@ -1,7 +1,10 @@
-FROM ruby:2.7-alpine
+FROM bitnami/ruby:2.7-prod
 COPY Gemfile Gemfile.lock ./
-RUN apk add --update --virtual build_deps ruby-dev build-base && \
+RUN apt update && \
+    apt install -y build-essential && \
     bundle install --no-deployment --without development --binstubs && \
-    apk del build_deps && rm -rf /var/cache/apk/*
+    apt-get remove -y --auto-remove build-essential && \
+    apt clean && \
+    rm -rf /var/lib/apt/lists/*
 ADD . .
-CMD ruby --jit server.rb
+CMD ruby --jit config.rb
